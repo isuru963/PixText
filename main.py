@@ -1,5 +1,6 @@
 import sys
 import pytesseract
+import PyQt5
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QFileDialog
 from PyQt5.QtCore import Qt
 from PIL import Image
