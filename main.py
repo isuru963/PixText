@@ -1,6 +1,6 @@
 import sys
 import pytesseract
-from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QFileDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QFileDialog, QLabel
 from PyQt5.QtCore import Qt
 from PIL import Image
 
@@ -15,12 +15,21 @@ class OCRApp(QWidget):
         # Set up layout
         self.layout = QVBoxLayout()
         
-        # Text area to display and edit extracted text
+        # Label for file upload area
+        self.upload_label = QLabel("No file selected", self)
+        self.layout.addWidget(self.upload_label)
+
+        # Button to open file explorer
+        self.upload_button = QPushButton("Submit File", self)
+        self.upload_button.clicked.connect(self.open_file_dialog)
+        self.layout.addWidget(self.upload_button)
+
+        # Text area to display and edit extracted text (Area 2)
         self.text_area = QTextEdit(self)
-        self.text_area.setPlaceholderText("Drag and drop an image here")
+        self.text_area.setPlaceholderText("Converted text will appear here")
         self.layout.addWidget(self.text_area)
 
-        # Button to save edited text
+        # Button to save the converted text
         self.save_button = QPushButton("Save Text", self)
         self.save_button.clicked.connect(self.save_text)
         self.layout.addWidget(self.save_button)
@@ -28,28 +37,14 @@ class OCRApp(QWidget):
         # Set up window layout
         self.setLayout(self.layout)
 
-        # Enable drag and drop
-        self.setAcceptDrops(True)
-
-    def dragEnterEvent(self, event):
-        # Accept the dragged file if it contains URLs (i.e., file paths)
-        if event.mimeData().hasUrls():
-            event.accept()
-        else:
-            event.ignore()
-
-    def dropEvent(self, event):
-        # Get the dropped file path
-        file_path = event.mimeData().urls()[0].toLocalFile()
-
-        # Print the file path to ensure it's being received correctly
-        print(f"File dropped: {file_path}")
-
-        # Process the image only if it's a valid image file (PNG, JPG, etc.)
-        if file_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
+    def open_file_dialog(self):
+        # Open file dialog to select an image
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open Image File", "", "Image Files (*.png *.jpg *.jpeg *.bmp *.gif)")
+        
+        # If a file is selected, process the image
+        if file_path:
+            self.upload_label.setText(f"Selected file: {file_path}")  # Show selected file path
             self.extract_text(file_path)
-        else:
-            self.text_area.setText("Unsupported file format!")
 
     def extract_text(self, image_path):
         try:
@@ -61,7 +56,7 @@ class OCRApp(QWidget):
             text = pytesseract.image_to_string(image)
             print(f"Extracted text: {text}")
 
-            # Set the extracted text to the text area
+            # Set the extracted text to the text area (Area 2)
             self.text_area.setText(text)
         except Exception as e:
             self.text_area.setText(f"Error: {str(e)}")
