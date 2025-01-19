@@ -1,6 +1,5 @@
 import sys
 import pytesseract
-import PyQt5
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QFileDialog
 from PyQt5.QtCore import Qt
 from PIL import Image
@@ -33,23 +32,30 @@ class OCRApp(QWidget):
         self.setAcceptDrops(True)
 
     def dragEnterEvent(self, event):
-        # Accept the dragged file
+        # Accept the dragged file if it contains URLs (i.e., file paths)
         if event.mimeData().hasUrls():
             event.accept()
         else:
             event.ignore()
 
     def dropEvent(self, event):
-        # Get the dropped file and process it
+        # Get the dropped file path
         file_path = event.mimeData().urls()[0].toLocalFile()
+
+        # Print the file path to ensure it's being received correctly
+        print(f"File dropped: {file_path}")
+
+        # Process the image only if it's a valid image file (PNG, JPG, etc.)
         if file_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
             self.extract_text(file_path)
+        else:
+            self.text_area.setText("Unsupported file format!")
 
     def extract_text(self, image_path):
         try:
             # Open the image using PIL
-            image = Image.open(image_path)
             print(f"Processing image: {image_path}")
+            image = Image.open(image_path)
 
             # Use Tesseract to extract text from the image
             text = pytesseract.image_to_string(image)
