@@ -3,14 +3,16 @@ import pytesseract
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QFileDialog, QLabel
 from PyQt5.QtCore import Qt
 from PIL import Image
+import os
 
 class OCRApp(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Image-to-Text Converter")
 
-        # Set Tesseract path (make sure this is correct for your installation)
-        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Update path
+        # Set the Tesseract path to the bundled Tesseract executable
+        # Update the path to the bundled Tesseract in your project folder
+        pytesseract.pytesseract.tesseract_cmd = r'C:\path\to\your\project\tesseract\tesseract.exe'
 
         # Set up layout
         self.layout = QVBoxLayout()
