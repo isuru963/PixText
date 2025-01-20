@@ -12,7 +12,7 @@ class OCRApp(QWidget):
 
         # Set the Tesseract path to the bundled Tesseract executable
         # Update the path to the bundled Tesseract in your project folder
-        pytesseract.pytesseract.tesseract_cmd = r'C:\path\to\your\project\tesseract\tesseract.exe'
+        pytesseract.pytesseract.tesseract_cmd = r'E:\ISA_DEVLABS\02 PixText\tesseract\tesseract.exe'
 
         # Set up layout
         self.layout = QVBoxLayout()
