@@ -1,0 +1,7 @@
+Python 3.7+
+
+pytesseract
+
+Pillow (PIL)
+
+Tesseract OCR engine (ensure it’s installed on your machine)
