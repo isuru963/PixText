@@ -11,8 +11,7 @@ This project is a Python-based tool that extracts text from images using Optical
 
 ## 🔧 How to Use
 
-1. Clone this repository:
+Just Clone this repository:
    ```bash
    git clone https://github.com/YOUR_USERNAME/image-to-text-converter.git
    cd image-to-text-converter
-
