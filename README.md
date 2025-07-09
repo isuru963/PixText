@@ -4,7 +4,7 @@ This project is a Python-based tool that extracts text from images using Optical
 
 ## 🚀 Features
 
-✅ **100% accurate text extraction**  
+✅ **100% accurate text extraction.**  
 ✅ **Supports a variety of image formats** (JPG, PNG, BMP, etc.)  
 ✅ **Easy to use – just upload your image and get the text!**  
 ✅ **Open-source and customizable**
