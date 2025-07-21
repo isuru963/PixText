@@ -10,11 +10,10 @@ class OCRApp(QWidget):
         super().__init__()
         self.setWindowTitle("Image-to-Text Converter")
 
-        # Set the Tesseract path to the bundled Tesseract executable
-        # Update the path to the bundled Tesseract in your project folder
+       
         pytesseract.pytesseract.tesseract_cmd = r'E:\ISA_DEVLABS\02 PixText\tesseract\tesseract.exe'
 
-        # Set up layout
+       
         self.layout = QVBoxLayout()
         
         # Label for file upload area
